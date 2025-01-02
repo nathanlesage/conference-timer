@@ -215,7 +215,6 @@ const currentReminders = computed<Array<{ from: number, to: number, label?: stri
  */
 const currentReminderLabel = computed<string|undefined>(() => {
   if (currentReminders.value.length === 0) {
-    console.log('No available reminders.')
     return undefined
   }
 
@@ -285,8 +284,7 @@ onBeforeUnmount(() => {
 })
 
 function startTimer () {
-  makeFullscreen()
-  lockScreen()
+  enterFullscreen().catch(err => console.error(err))
   resetTimer()
   currentTimerState.value.state = 'started'
 }
@@ -311,58 +309,75 @@ function resetTimer () {
 
 function stopTimer () {
   resetTimer()
-  releaseScreen()
-  exitFullscreen()
+  exitFullscreen().catch(err => console.error(err))
 }
 
-function makeFullscreen () {
+async function enterFullscreen () {
   if (document.fullscreenElement !== null) {
     return
   }
 
   const elem = document.documentElement
-  elem.requestFullscreen().catch(err => console.error(err))
+  try {
+    await elem.requestFullscreen()
+  } catch (err) {
+    console.error(err)
+  }
+
+  // ATTENTION: Without waiting for a second (maybe more?), the wakeLock will be
+  // immediately released on macOS (all browsers). I currently suspect that this
+  // is due to the way fullscreen works on macOS: Because it just doesn't happen
+  // instantly, apparently the window briefly loses its status as "fully active"
+  // meaning that the document is no longer considered eligible for a wake lock.
+  // By waiting until the fullscreen animation has finished, we seem to be able
+  // to keep the wake lock active.
+  await new Promise((resolve) => {
+    setTimeout(resolve, 1000)
+  })
+  
+  await lockScreen()
 }
 
-function exitFullscreen () {
+async function exitFullscreen () {
   if (document.fullscreenElement === null) {
     return
   }
 
-  document.exitFullscreen().catch(err => console.error(err))
+  try {
+    await document.exitFullscreen()
+    await releaseScreen()
+  } catch (err) {
+    console.error(err)
+  }
 }
 
-function lockScreen () {
+async function lockScreen () {
   if (wakeLock !== undefined) {
     return // Wake lock already acquired
   }
 
-  navigator.wakeLock.request('screen')
-    .catch(err => {
-      console.error(err)
+  try {
+    wakeLock = await navigator.wakeLock.request('screen')
+    console.log('WakeLock acquired. Display will not go to sleep.')
+    wakeLock.addEventListener('release', () => {
+      console.log('WakeLock has been released.')
+      wakeLock = undefined
     })
-    .then(lock => {
-      if (lock == null) {
-        // TODO: Error
-      } else {
-        // Save for later
-        console.log('WakeLock acquired. Display will not go to sleep.')
-        wakeLock = lock
-      }
-    })
+  } catch (err) {
+    console.error(err)
+  }
 }
 
-function releaseScreen () {
+async function releaseScreen () {
   if (wakeLock === undefined) {
     return
   }
 
-  wakeLock.release()
-    .catch(err => console.error(err))
-    .then(() => {
-      console.log('WakeLock released successfully.')
-      wakeLock = undefined
-    })
+  try {
+    await wakeLock.release()
+  } catch (err) {
+    console.error(err)
+  }
 }
 
 function getNowSeconds () {
