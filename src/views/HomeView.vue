@@ -41,7 +41,7 @@
     <footer>
       <p class="contrast-text">
         &copy; Hendrik Erz {{ (new Date()).getFullYear() }} |
-        <a href="">View on GitHub</a>
+        <a href="https://github.com/nathanlesage/conference-timer">View on GitHub</a>
       </p>
     </footer>
   </div>
