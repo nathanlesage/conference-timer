@@ -1,6 +1,8 @@
-# Conference Timer
+# Conference Timer ![Logo (Feather Icons)](./src/assets/logo.svg)
 
 > Communicate presentation and Q&A times to your speakers at your event.
+
+![Screenshot of running timer](./resources/screenshot_running_dark_frame.png)
 
 If you have ever been at a conference, you probably know how difficult it can be
 to keep your time; and you probably have experienced speakers overshooting their
@@ -18,6 +20,8 @@ Conference Timer has been developed with common conference setups in mind and
 balances the scarce resources we often have at conferences (at least an internet
 enabled device with a screen, that is, a laptop or tablet) with the mental
 capacities of a speaker.
+
+![Screenshot of message](./resources/screenshot_message_dark.jpg)
 
 Conference Timer offers three benefits over other common time keeping methods:
 
@@ -38,6 +42,7 @@ Conference Timer offers three benefits over other common time keeping methods:
 * Auto-fullscreen capability, and prevents the display from sleeping while the
   timer is running
 * Full control (start, pause, resume, stop, restart)
+* Built-in dark mode
 * Instructions for
   [conference organizers](#instructions-for-conference-organizers),
   [session chairs](#instructions-for-session-chairs), and
