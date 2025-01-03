@@ -70,7 +70,7 @@
     <hr>
     <p>
       View the full instructions for conference organizers, session chairs, and
-      speakers <a href="https://github.com/nathanlesage/conference-timer/blob/main/README.md">in the README file</a>.
+      speakers <a href="https://github.com/nathanlesage/conference-timer#readme">in the README</a>.
     </p>
     <hr>
     <p>
