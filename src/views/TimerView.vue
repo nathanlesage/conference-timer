@@ -10,36 +10,49 @@
     <!-- Then the main timer grid -->
     <div id="timer-grid">
       <!-- Timer Controls -->
-      <div class="header-left">
+      <div class="header-left contrast-text">
         <div id="timer-controls">
-          <a href="#" v-on:click="resetTimer()">⏮</a>
-          <a href="#" v-on:click="pauseTimer()" v-bind:class="{ active: currentTimerState.state === 'paused' }">⏸</a>
-          <a href="#" v-on:click="resumeTimer()" v-bind:class="{ active: currentTimerState.state === 'started' }">▶</a>
-          <a href="#" v-on:click="stopTimer()" v-bind:class="{ active: currentTimerState.state === 'stopped' }">⏹</a>
+          <a href="#" v-on:click="resetTimer()">
+            <RewindIcon v-bind:size="20"></RewindIcon>
+          </a>
+          <a href="#" v-on:click="pauseTimer()" v-bind:class="{ active: currentTimerState.state === 'paused' }">
+            <PauseIcon v-bind:size="20"></PauseIcon>
+          </a>
+          <a href="#" v-on:click="resumeTimer()" v-bind:class="{ active: currentTimerState.state === 'started' }">
+            <PlayIcon v-bind:size="20"></PlayIcon>
+          </a>
+          <a href="#" v-on:click="stopTimer()" v-bind:class="{ active: currentTimerState.state === 'stopped' }">
+            <StopIcon v-bind:size="20"></StopIcon>
+          </a>
         </div>
       </div>
 
       <div class="header-center">
+        <p v-if="currentTimerState.state === 'paused'" class="info-text">
+          Paused
+        </p>
         <!--
           We use this slot to display an error if the screen couldn't be locked.
           This is helpful to announce to users because the display may go to
           sleep before the timer is finished.
         -->
-          <p v-if="currentTimerState.state !== 'stopped' && wakeLock === undefined" class="contrast-text">
-            <strong>Warning</strong>: Display may go to sleep
-          </p>
+        <p v-else-if="currentTimerState.state !== 'stopped' && wakeLock === undefined" class="contrast-text">
+          <strong>Warning</strong>: Display may go to sleep
+        </p>
       </div>
 
-      <div class="header-right">
+      <div class="header-right contrast-text">
         <!-- Exit the timer view -->
         <RouterLink to="/">Exit</RouterLink>
       </div>
 
-      <div class="content-center main-display">
+      <div id="main-display" class="content-center contrast-text">
         <template v-if="currentTimerState.state === 'stopped'">
           <!-- The timer hasn't started -> show welcome message -->
-          <a href="#" v-on:click="resumeTimer">▶</a>
-          <p class="info-text contrast-text">
+          <a href="#" v-on:click="resumeTimer">
+            <PlayIcon v-bind:size="120" v-bind:solid="true"></PlayIcon>
+          </a>
+          <p class="info-text">
             <strong>You're all set!</strong>
             <br>
             Click start to begin the presentation. If you intend to show the
@@ -48,27 +61,28 @@
             enter fullscreen mode.
           </p>
         </template>
-        <template v-else-if="currentTimerState.state === 'paused'">
-          <!-- The timer has paused -> Show resume -->
-          <a href="#" v-on:click="resumeTimer">▶</a>
-          <p class="info-text contrast-text">Resume timer</p>
-        </template>
-        <p class="contrast-text" v-else-if="currentTimerState.state === 'ended'">
+        <p v-else-if="currentTimerState.state === 'ended'">
           <!-- The timer has finished -> Show finish message -->
           <strong>{{ template.finishMessage }}</strong>
         </p>
         <template v-else>
           <!-- Nothing else applies: Show the countdown -->
           <Transition name="blur">
-            <span v-if="currentReminderLabel === undefined" class="timer time-display contrast-text">
-              <template v-if="template.showCountdown === false">
-                {{ currentPhase }}
-              </template>
-              <template v-else>
+            <span
+              v-if="currentReminderLabel === undefined"
+              v-bind:class="{ timer: true, 'time-display': true, blink: currentTimerState.state === 'paused' }"
+            >
+              <template v-if="template.showCountdown">
                 {{ phaseCountdown }}
               </template>
+              <template v-else>
+                {{ currentPhase }}
+              </template>
             </span>
-            <span v-else class="timer time-display contrast-text">
+            <span
+              v-else
+              v-bind:class="{ timer: true, 'time-display': true, blink: currentTimerState.state === 'paused' }"
+            >
               {{ currentReminderLabel }}
             </span>
           </Transition>
@@ -86,6 +100,10 @@
 import { useRoute } from 'vue-router'
 import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
 import { useTimerConfigStore, type TimerConfig } from '../stores/timer-config'
+import PauseIcon from '@/components/icons/PauseIcon.vue'
+import PlayIcon from '@/components/icons/PlayIcon.vue'
+import RewindIcon from '@/components/icons/RewindIcon.vue'
+import StopIcon from '@/components/icons/StopIcon.vue'
 
 const route = useRoute()
 const slug = computed<string>(() => route.params.slug as string)
@@ -400,6 +418,10 @@ function getNowSeconds () {
   align-items: center;
   overflow: hidden;
 
+  a {
+    color: inherit;
+  }
+
   .header-left { grid-area: header-left; text-align: left; }
   .header-center { grid-area: header-center; text-align: center; }
   .header-right { grid-area: header-right;  text-align: right; }
@@ -436,7 +458,7 @@ function getNowSeconds () {
     width: 20px;
     height: 20px;
     &:hover, &.active {
-      background-color: var(--color-background-mute);
+      opacity: 0.5;
     }
   }
 }
@@ -445,7 +467,7 @@ function getNowSeconds () {
 .text-center { text-align: center; }
 .text-right { text-align: right; }
 
-.main-display {
+#main-display {
   font-size: 20vh;
   font-weight: 700;
   /* Display grid and grid-row/grid-column make all span.timer-elements overlay in the center */
@@ -458,17 +480,26 @@ function getNowSeconds () {
     font-weight: bold;
     display: block;
   }
+
+  a:hover {
+    transform: scale(2);
+  }
 }
 
 .time-display {
   /* This ensures that numbers are always fixed width */
   font-variant-numeric: tabular-nums;
+
+  &.blink {
+    animation: blink 1s linear infinite;
+  }
 }
 
 p.info-text {
   font-size: 20px;
   max-width: 600px;
   margin: 0 auto;
+  color: var(--color-text-mute);
 }
 
 /* Transition styles */
@@ -489,5 +520,13 @@ p.info-text {
     filter: blur(40px);
     opacity: 0;
   }
+}
+
+@keyframes blink {
+  0% { opacity: 1; }
+  40% { opacity: 1; }
+  50% { opacity: 0; }
+  90% { opacity: 0; }
+  100% { opacity: 1; }
 }
 </style>
