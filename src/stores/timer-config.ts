@@ -1,6 +1,6 @@
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
-import { slugify } from '@/util/slugify'
+import { ensureUniqueSlugs, slugify } from '@/util/slugify'
 
 export interface TimeReminder {
   /**
@@ -177,6 +177,8 @@ const DEFAULT_TIMERS: TimerConfig[] = [
   }
 ]
 
+ensureUniqueSlugs(DEFAULT_TIMERS) // Ensure each timer has a unique slug
+
 export const useTimerConfigStore = defineStore('timer-config', () => {
   const templates = ref<TimerConfig[]>(DEFAULT_TIMERS)
 
@@ -229,18 +231,9 @@ export const useTimerConfigStore = defineStore('timer-config', () => {
         })
     }
 
-    // Final check: Make sure the slug is unique
-    const existingTemplate = templates.value.find(t => t.slug === cleanTemplate.slug)
-    if (existingTemplate !== undefined) {
-      let counter = 1
-      while (templates.value.find(t => t.slug === cleanTemplate.slug + '-' + String(counter)) !== undefined) {
-        counter++
-      }
-      cleanTemplate.slug += '-' + String(counter)
-    }
-
     // Now add to the beginning (so users can quickly find it on the homepage) and return
     templates.value.unshift(cleanTemplate)
+    ensureUniqueSlugs(templates.value) // Ensure the new slug is not a duplicate
     return cleanTemplate
   }
 
