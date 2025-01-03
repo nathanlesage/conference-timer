@@ -1,5 +1,18 @@
 <template>
-  <svg xmlns="http://www.w3.org/2000/svg" v-bind:width="props.size ?? 24" v-bind:height="props.size ?? 24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-watch"><circle cx="12" cy="12" r="7"></circle><polyline points="12 9 12 12 13.5 13.5"></polyline><path d="M16.51 17.35l-.35 3.83a2 2 0 0 1-2 1.82H9.83a2 2 0 0 1-2-1.82l-.35-3.83m.01-10.7l.35-3.83A2 2 0 0 1 9.83 1h4.35a2 2 0 0 1 2 1.82l.35 3.83"></path></svg>
+  <svg xmlns="http://www.w3.org/2000/svg"
+    v-bind:width="props.size ?? 48" height="props.size ?? 48" viewBox="0 0 48 48"
+    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+  >
+    <g id="clock">
+      <path d="M24 8 a16 16 0 1 1 -16 16" />
+      <path d="M24 16 L24 24" /><!-- Hour -->
+      <path d="M12 24 L24 24" /><!-- Minute -->
+      <path d="M24 24 L24 32" /><!-- Second -->
+    </g>
+    <g id="wedge">
+      <path d="M6 16 L20 20 l-4 -14 a16 16 0 0 0 -10 10" />
+    </g>
+  </svg>
 </template>
 
 <script setup lang="ts">
@@ -7,4 +20,19 @@ const props = defineProps<{ size?: number }>()
 </script>
 
 <style scoped lang="css">
+#clock {
+  stroke: #33333f;
+  fill: none;
+}
+
+#wedge {
+  stroke: #db0d5c;
+  fill: #db0d5c;
+}
+
+@media (prefers-color-scheme: dark) {
+  #clock {
+    stroke: #eef;
+  }
+}
 </style>

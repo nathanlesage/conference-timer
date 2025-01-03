@@ -1,20 +1,27 @@
-# Conference Timer ![Logo (Feather Icons)](./src/assets/logo.svg)
+<h1 align="center">
+  <a href="https://conf-timer.hendrik-erz.de/">
+    <img src="./src/assets/logo.svg" alt="Conference Timer" width="128" height="128" />
+  </a>
+  <br/>
+  Conference Timer
+</h1>
 
-> Communicate presentation and Q&A times to your speakers at your event.
+<p align="center">
+  <strong>Communicate presentation and Q&A times to your speakers.</strong>
+</p>
 
 ![Screenshot of running timer](./resources/screenshot_running_dark_frame.png)
 
-If you have ever been at a conference, you probably know how difficult it can be
-to keep your time; and you probably have experienced speakers overshooting their
+If you have ever been at a conference, you know how difficult it can be to keep
+your time; and you probably have experienced speakers overshooting their
 allotted time. Conference Timer is a tool intended to make managing time for
 conference presentations easier.
 
-There are three primary issues that make keeping time difficult both as a
-session chair and a speaker:
+Keeping time is difficult, both for session chairs and speakers:
 
-1. Managing time as a speaker demands additional mental resources
-2. Holding up "x minutes left"-signs from a back seat can look awkward
-3. At many conferences, there are usually no professional time keeping systems
+* Managing time as a speaker demands additional mental resources
+* Holding up "x minutes left"-signs from a back seat can look awkward
+* At many conferences, there are usually no professional time keeping systems
 
 Conference Timer has been developed with common conference setups in mind and
 balances the scarce resources we often have at conferences (at least an internet
@@ -40,13 +47,15 @@ Conference Timer offers three benefits over other common time keeping methods:
   * keynotes
 * Create custom templates for your own conference
 * Auto-fullscreen capability, and prevents the display from sleeping while the
-  timer is running
+  timer is running\*
 * Full control (start, pause, resume, stop, restart)
 * Built-in dark mode
 * Instructions for
   [conference organizers](#instructions-for-conference-organizers),
   [session chairs](#instructions-for-session-chairs), and
   [speakers](#instructions-for-speakers)
+
+\* *These features are not supported in every browser or every device. Please check beforehand.*
 
 ## Getting Started
 
