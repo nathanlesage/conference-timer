@@ -28,8 +28,6 @@ balances the scarce resources we often have at conferences (at least an internet
 enabled device with a screen, that is, a laptop or tablet) with the mental
 capacities of a speaker.
 
-![Screenshot of message](./resources/screenshot_message_dark.jpg)
-
 Conference Timer offers three benefits over other common time keeping methods:
 
 1. It can be configured for any presentation length within a few seconds and is
