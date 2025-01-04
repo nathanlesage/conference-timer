@@ -57,9 +57,10 @@ Conference Timer offers three benefits over other common time keeping methods:
 
 ## Getting Started
 
-To get started, visit the Conference Timer website, and either select a
-predefined template, or create your own. If you create your own template, you
-can copy a link to it to share with, e.g., all of your session chairs to use.
+To get started, [open the Conference Timer website](https://conf-timer.hendrik-erz.de/),
+and either select a predefined template, or create your own. If you create your
+own template, you can copy a link to it to share with, e.g., all of your session
+chairs to use.
 
 After you have selected a template, you are redirected to the timer screen. If
 you have several screens, you should now move the browser window onto the screen
