@@ -39,6 +39,7 @@
     <footer>
       <p class="contrast-text">
         &copy; Hendrik Erz {{ (new Date()).getFullYear() }} |
+        Conference Timer v{{ versionString }} |
         <a href="https://github.com/nathanlesage/conference-timer">View on GitHub</a>
       </p>
     </footer>
@@ -49,6 +50,8 @@
 import { useTimerConfigStore } from '../stores/timer-config'
 import AppLogo from '../components/AppLogo.vue'
 import { RouterLink } from 'vue-router'
+
+const versionString = __APP_VERSION__
 
 const timerConfig = useTimerConfigStore()
 </script>
