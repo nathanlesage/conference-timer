@@ -89,7 +89,23 @@
         </template>
       </div>
 
-      <div class="footer-left contrast-text">{{ template.name }}</div>
+      <div class="footer-left contrast-text">
+        <select
+          id="template-selector"
+          v-bind:value="template.slug"
+          v-on:change="switchTemplate(($event.target as HTMLSelectElement).value)"
+        >
+          <optgroup label="Available templates">
+            <option
+              v-for="t in templateStore.templates"
+              v-bind:key="t.slug"
+              v-bind:value="t.slug"
+            >
+              {{ t.name }}
+            </option>
+          </optgroup>
+        </select>
+      </div>
       <div class="footer-center time-display contrast-text">{{ totalCountdown }}</div>
       <div class="footer-right contrast-text">{{ currentPhase }}</div>
     </div>
@@ -97,7 +113,7 @@
 </template>
 
 <script setup lang="ts">
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
 import { useTimerConfigStore, type TimerConfig } from '../stores/timer-config'
 import PauseIcon from '@/components/icons/PauseIcon.vue'
@@ -105,6 +121,7 @@ import PlayIcon from '@/components/icons/PlayIcon.vue'
 import RewindIcon from '@/components/icons/RewindIcon.vue'
 import StopIcon from '@/components/icons/StopIcon.vue'
 
+const router = useRouter()
 const route = useRoute()
 const slug = computed<string>(() => route.params.slug as string)
 
@@ -401,6 +418,10 @@ async function releaseScreen () {
 function getNowSeconds () {
   return Math.floor(Date.now() / 1000)
 }
+
+function switchTemplate (newSlug: string) {
+  router.replace(`/${newSlug}`)
+}
 </script>
 
 <style lang="css" scoped>
@@ -483,6 +504,25 @@ function getNowSeconds () {
 
   a:hover {
     transform: scale(2);
+  }
+}
+
+#template-selector {
+  background-color: transparent;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  color: inherit;
+  font-family: inherit;
+  font-size: inherit;
+  padding: 5px 10px;
+
+  &:not(:hover) {
+    -webkit-appearance: none;
+    appearance: none;
+  }
+
+  &:hover {
+    border-color: var(--color-border-hover);
   }
 }
 
