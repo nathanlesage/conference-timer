@@ -94,6 +94,7 @@
           id="template-selector"
           v-bind:value="template.slug"
           v-on:change="switchTemplate(($event.target as HTMLSelectElement).value)"
+          v-bind:disabled="currentTimerState.state !== 'stopped' && currentTimerState.state !== 'ended'"
         >
           <optgroup label="Available templates">
             <option
@@ -516,12 +517,12 @@ function switchTemplate (newSlug: string) {
   font-size: inherit;
   padding: 5px 10px;
 
-  &:not(:hover) {
+  &:not(:hover), &:disabled {
     -webkit-appearance: none;
     appearance: none;
   }
 
-  &:hover {
+  &:hover:not(:disabled) {
     border-color: var(--color-border-hover);
   }
 }
