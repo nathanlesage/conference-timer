@@ -18,8 +18,11 @@
       <div id="template-wrapper">
         <div class="template">
           <h4>Custom</h4>
-          <p>Create a custom template</p>
-          <RouterLink to="/wizard">Create</RouterLink>
+          <RouterLink to="/wizard">
+            +<br>
+            Add New
+          </RouterLink>
+          <p><!-- Ensure the RouterLink is in the center --></p>
         </div>
 
         <div class="template" v-for="timer in timerConfig.templates" v-bind:key="timer.name">
