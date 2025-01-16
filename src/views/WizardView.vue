@@ -8,7 +8,7 @@
       share it will your session chairs.
     </p>
     <p>
-      <RouterLink to="/">Cancel</RouterLink>
+      <RouterLink to="/">Back to the homepage</RouterLink>
     </p>
     <form>
       <fieldset>
@@ -71,6 +71,15 @@
 
       <fieldset>
         <legend>Reminders</legend>
+        <p>
+          The circles on this timeline indicate at which time points reminders
+          will be shown to the presenter.
+        </p>
+        <DynamicTimeline
+          width="100%"
+          v-bind:elapsed-seconds="0"
+          v-bind:template="config"
+        ></DynamicTimeline>
         <!-- Reminders -->
         <table>
           <thead>
@@ -126,6 +135,7 @@
 </template>
 
 <script setup lang="ts">
+import DynamicTimeline from '@/components/DynamicTimeline.vue'
 import { type TimerConfig } from '../stores/timer-config'
 import { slugify } from '../util/slugify'
 import { reactive, ref, computed, watch } from 'vue'

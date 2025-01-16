@@ -117,7 +117,12 @@
           </optgroup>
         </select>
       </div>
-      <div class="footer-center time-display contrast-text">{{ totalCountdown }}</div>
+      <div class="footer-center time-display contrast-text">
+        <DynamicTimeline
+          v-bind:template="template"
+          v-bind:elapsed-seconds="currentTimerState.timeNow - currentTimerState.timeStarted"
+        ></DynamicTimeline>
+      </div>
       <div class="footer-right contrast-text">{{ currentPhase }}</div>
     </div>
   </template>
@@ -127,6 +132,7 @@
 import { useRoute, useRouter } from 'vue-router'
 import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
 import { useTimerConfigStore, type TimerConfig } from '../stores/timer-config'
+import DynamicTimeline from '@/components/DynamicTimeline.vue'
 import PauseIcon from '@/components/icons/PauseIcon.vue'
 import PlayIcon from '@/components/icons/PlayIcon.vue'
 import RewindIcon from '@/components/icons/RewindIcon.vue'
@@ -166,9 +172,6 @@ const currentTimerState = ref<LocalTimerState>({
 const secondsElapsed = computed(() => {
   return currentTimerState.value.timeNow - currentTimerState.value.timeStarted
 })
-const secondsRemaining = computed(() => {
-  return presentationLength.value + qaLength.value - secondsElapsed.value
-})
 const secondsRemainingPhase = computed(() => {
   if (secondsElapsed.value < presentationLength.value) {
     return presentationLength.value - secondsElapsed.value
@@ -191,23 +194,6 @@ const progressStyle = computed(() => {
     return 'width: 0%'
   }
 
-})
-
-const totalCountdown = computed(() => {
-  if (template.value === undefined) {
-    return ''
-  }
-
-  const time = (template.value?.countUp === true)
-    ? secondsElapsed.value
-    : secondsRemaining.value
-
-  const hours = Math.floor(time / 3600).toString()
-  const withoutHours = time % 3600
-  const minutes = Math.floor(withoutHours / 60).toString()
-  const seconds = (withoutHours % 60).toString()
-
-  return `${hours.padStart(2, '0')}:${minutes.padStart(2, '0')}:${seconds.padStart(2, '0')}`
 })
 
 const phaseCountdown = computed(() => {
