@@ -421,6 +421,7 @@ function getNowSeconds () {
 }
 
 function switchTemplate (newSlug: string) {
+  resetTimer()
   router.replace(`/${newSlug}`)
 }
 </script>
@@ -509,6 +510,7 @@ function switchTemplate (newSlug: string) {
 }
 
 #template-selector {
+  appearance: none;
   background-color: transparent;
   border: 1px solid transparent;
   border-radius: 8px;
@@ -517,13 +519,13 @@ function switchTemplate (newSlug: string) {
   font-size: inherit;
   padding: 5px 10px;
 
-  &:not(:hover), &:disabled {
-    -webkit-appearance: none;
-    appearance: none;
-  }
-
   &:hover:not(:disabled) {
+    /* Set a visible border and a custom arrow */
     border-color: var(--color-border-hover);
+    background: transparent;
+    background-image: url("data:image/svg+xml;utf8,<svg stroke='white' height='24' width='24' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'><path d='M0 10 l10 0 l-5-7z'/></svg>");
+    background-repeat: no-repeat;
+    background-position: 100% 8px;
   }
 }
 
