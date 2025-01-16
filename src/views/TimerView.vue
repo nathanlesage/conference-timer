@@ -1,7 +1,17 @@
 <template>
-  <template v-if="template === undefined">
-    <h1>404</h1> <!-- TODO: Better 404 template! -->
-  </template>
+  <!-- 404 template -->
+  <div id="timer-grid" v-if="template === undefined">
+    <!-- Timer Controls -->
+    <div class="header-center"><strong>404</strong>: Template not Found</div>
+    <div class="content-center contrast-text underline-anchors">
+      <p style="max-width: 50vw; margin: 0 auto;">
+        Unfortunately, we could not find this template. Maybe its URL is missing
+        a few characters? Otherwise, you can
+        <RouterLink to="/wizard">create a new template</RouterLink> or
+        <RouterLink to="/">select one</RouterLink> from the start screen.
+      </p>
+    </div>
+  </div>
 
   <template v-else>
     <!-- First the background animation -->
@@ -543,6 +553,10 @@ p.info-text {
   max-width: 600px;
   margin: 0 auto;
   color: var(--color-text-mute);
+}
+
+.underline-anchors a {
+  text-decoration: underline;
 }
 
 /* Transition styles */
