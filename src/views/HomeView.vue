@@ -16,26 +16,26 @@
         <RouterLink v-bind:to="'/about'">Read instructions</RouterLink>
       </p>
       <div id="template-wrapper">
-        <div class="template">
-          <h4>Custom</h4>
-          <RouterLink to="/wizard">
-            +<br>
-            Add New
-          </RouterLink>
-          <p><!-- Ensure the RouterLink is in the center --></p>
+        <!-- Create Custom action -->
+        <RouterLink to="/wizard" class="template inline">Add new custom template</RouterLink>
+
+        <!-- "Table" header -->
+        <div class="template accent-background">
+          <strong class="name">Template Name</strong>
+          <strong class="time">Time</strong>
+          <strong class="qa">Q&amp;A</strong>
+          <strong class="use">&nbsp;</strong>
         </div>
 
         <div class="template" v-for="timer in timerConfig.templates" v-bind:key="timer.name">
-          <h4>{{ timer.name }}</h4>
-
-          <p>
-            {{ timer.presentationDuration }}min
-            <template v-if="timer.qaDuration > 0">
-              + {{ timer.qaDuration }}min Q&amp;A
-            </template>
+          <strong class="name">{{ timer.name }}</strong>
+          <p class="time">{{ timer.presentationDuration }}&thinsp;min</p>
+          <p class="qa">
+            <template v-if="timer.qaDuration > 0">{{ timer.qaDuration }}&thinsp;min</template>
+            <template v-else>&nbsp;</template>
           </p>
 
-          <RouterLink v-bind:to="'/' + timer.slug">Use</RouterLink>
+          <RouterLink v-bind:to="'/' + timer.slug" class="use">Use &raquo;</RouterLink>
         </div>
       </div>
     </main>
@@ -84,28 +84,47 @@ const timerConfig = useTimerConfigStore()
 }
 
 #template-wrapper {
-  display: flex;
   padding: 20px 0;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px;
+  max-width: 600px;
+  margin: 0 auto;
   overflow: auto;
 
+  a { text-decoration: none; }
+
   .template {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 150px;
-    aspect-ratio: 1;
+    display: grid;
+    grid-template-columns: auto 100px 100px 100px;
+    grid-template-areas: "name time qa use";
+    align-items: center;
     font-size: 14px;
     background-color: var(--color-background-soft);
-    padding: 5px;
     border-radius: 5px;
+    margin-bottom: 5px;
+    padding: 5px;
 
-    a {
-      font-size: 20px;
+    > * {
+      padding: 5px;
     }
+
+    > *:not(:last-child) {
+      border-right: 1px dotted var(--color-text);
+    }
+
+    .name { grid-area: name; text-align: right; padding-right: 10px; }
+    .time { grid-area: time; }
+    .qa { grid-area: qa; }
+    .time, .qa { white-space: nowrap; } /* Prevent breaking up the times */
+    .use { grid-area: use; }
+
+    &.accent-background {
+      background-color: var(--vt-c-indigo);
+      color: white;
+      > *:not(:last-child) {
+        border-right-color: white;
+      }
+    }
+
+    &.inline { display: inline-block; }
   }
 }
 

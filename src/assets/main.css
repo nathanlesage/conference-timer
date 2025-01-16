@@ -1,7 +1,6 @@
 @import './base.css';
 
 a {
-  text-decoration: none;
   color: rgb(55, 129, 227);
   transition: 0.4s;
   padding: 3px;

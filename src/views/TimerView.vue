@@ -453,6 +453,7 @@ function switchTemplate (newSlug: string) {
 
   a {
     color: inherit;
+    text-decoration: none;
   }
 
   .header-left { grid-area: header-left; text-align: left; }
@@ -527,7 +528,7 @@ function switchTemplate (newSlug: string) {
   color: inherit;
   font-family: inherit;
   font-size: inherit;
-  padding: 5px 10px;
+  padding: 5px 35px 5px 10px;
 
   &:hover:not(:disabled) {
     /* Set a visible border and a custom arrow */
