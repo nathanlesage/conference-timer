@@ -138,6 +138,12 @@ import PlayIcon from '@/components/icons/PlayIcon.vue'
 import RewindIcon from '@/components/icons/RewindIcon.vue'
 import StopIcon from '@/components/icons/StopIcon.vue'
 
+// NOTE: This prop allows us to overwrite the TimerView automatically fetching
+// the slug from the URL (only really necessary for storybook)
+const props = defineProps<{
+  useTemplate?: TimerConfig
+}>()
+
 const router = useRouter()
 const route = useRoute()
 const slug = computed<string>(() => route.params.slug as string)
@@ -145,7 +151,11 @@ const slug = computed<string>(() => route.params.slug as string)
 const templateStore = useTimerConfigStore()
 
 const template = computed<TimerConfig|undefined>(() => {
-  return templateStore.templates.find(x => x.slug === slug.value)
+  if (props.useTemplate !== undefined) {
+    return props.useTemplate
+  } else {
+    return templateStore.templates.find(x => x.slug === slug.value)
+  }
 })
 
 const presentationLength = computed(() => {

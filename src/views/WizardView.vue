@@ -8,7 +8,7 @@
       share it will your session chairs.
     </p>
     <p>
-      <RouterLink to="/">Back to the homepage</RouterLink>
+      <RouterLink to="/" class="pillow">Back to the homepage</RouterLink>
     </p>
     <form>
       <fieldset>
@@ -19,7 +19,7 @@
           <input type="text" v-model="config.name" name="name" id="form-name" placeholder="A human-readable name">
         </div>
         <div class="form-line">
-          <label for="form-slug">Slug</label>
+          <label for="form-slug">Slug <small>(automatically generated)</small></label>
           <input type="text" v-model="config.slug" name="slug" id="form-slug" placeholder="A URL-safe version of the name" readonly>
         </div>
         <div class="form-line">
@@ -32,22 +32,22 @@
         <!-- Presentation and Q&A -->
         <div class="time-grid">
           <label for="form-presentation-duration">Presentation duration:</label>
-          <div style="display: flex; gap: 5px;">
-            <a href="#" v-on:click.prevent="config.presentationDuration = 10" v-bind:class="{'active': config.presentationDuration === 10 }">10min</a>
-            <a href="#" v-on:click.prevent="config.presentationDuration = 15" v-bind:class="{'active': config.presentationDuration === 15 }">15min</a>
-            <a href="#" v-on:click.prevent="config.presentationDuration = 20" v-bind:class="{'active': config.presentationDuration === 20 }">20min</a>
-            <a href="#" v-on:click.prevent="config.presentationDuration = 30" v-bind:class="{'active': config.presentationDuration === 30 }">30min</a>
+          <div style="display: flex; gap: 5px; white-space: nowrap ;">
+            <a href="#" v-on:click.prevent="config.presentationDuration = 10" v-bind:class="{'active': config.presentationDuration === 10 }">10&thinsp;min</a>
+            <a href="#" v-on:click.prevent="config.presentationDuration = 15" v-bind:class="{'active': config.presentationDuration === 15 }">15&thinsp;min</a>
+            <a href="#" v-on:click.prevent="config.presentationDuration = 20" v-bind:class="{'active': config.presentationDuration === 20 }">20&thinsp;min</a>
+            <a href="#" v-on:click.prevent="config.presentationDuration = 30" v-bind:class="{'active': config.presentationDuration === 30 }">30&thinsp;min</a>
           </div>
           <input type="number" v-model="config.presentationDuration" id="form-presentation-duration" placeholder="How long should the presentation be?" min="1">
           <span>minutes</span>
         </div>
         <div class="time-grid">
           <label for="form-qa-duration">Q&amp;A session duration:</label>
-          <div style="display: flex; gap: 5px;">
-            <a href="#" v-on:click.prevent="config.qaDuration = 0" v-bind:class="{'active': config.qaDuration === 0 }">0min</a>
-            <a href="#" v-on:click.prevent="config.qaDuration = 5" v-bind:class="{'active': config.qaDuration === 5 }">5min</a>
-            <a href="#" v-on:click.prevent="config.qaDuration = 10" v-bind:class="{'active': config.qaDuration === 10 }">10min</a>
-            <a href="#" v-on:click.prevent="config.qaDuration = 15" v-bind:class="{'active': config.qaDuration === 15 }">15min</a>
+          <div style="display: flex; gap: 5px; white-space: nowrap ;">
+            <a href="#" v-on:click.prevent="config.qaDuration = 0" v-bind:class="{'active': config.qaDuration === 0 }">0&thinsp;min</a>
+            <a href="#" v-on:click.prevent="config.qaDuration = 5" v-bind:class="{'active': config.qaDuration === 5 }">5&thinsp;min</a>
+            <a href="#" v-on:click.prevent="config.qaDuration = 10" v-bind:class="{'active': config.qaDuration === 10 }">10&thinsp;min</a>
+            <a href="#" v-on:click.prevent="config.qaDuration = 15" v-bind:class="{'active': config.qaDuration === 15 }">15&thinsp;min</a>
           </div>
           <input type="number" v-model="config.qaDuration" id="form-qa-duration" placeholder="How long should the Q&A session be?" min="0">
           <span>minutes</span>
@@ -127,7 +127,7 @@
           <span v-if="copyMessage">{{ copyMessage }}</span>
         </div>
         <div class="form-line">
-          <RouterLink v-bind:to="createLink">Create this template and switch to timer view</RouterLink>
+          <RouterLink v-bind:to="createLink" class="pillow">Create Template &amp; Use</RouterLink>
         </div>
       </fieldset>
     </form>
@@ -221,53 +221,10 @@ function copyLink () {
   }
 }
 
-fieldset {
-  border-radius: 4px;
-  border: 1px solid var(--color-border);
-  margin: 20px 0;
-
-  legend {
-    color: var(--color-text-mute);
-  }
-}
-
-input {
-  font-size: 24px;
-  display: block;
-  border: 1px solid var(--color-border);
-  border-radius: 4px;
-  padding: 5px 10px;
-  width: 100%;
-  margin: 5px 0;
-  color: var(--color-text);
-  background-color: var(--color-background-soft);
-
-  &:read-only:not([type=submit]):not([type=button]):not([type=checkbox]) {
-    background-color: var(--color-background-mute);
-    color: var(--color-text-mute);
-    cursor: not-allowed;
-  }
-
-  &[type=submit] {
-    cursor: pointer;
-  }
-}
-
-.form-line {
-  margin: 20px 0;
-}
-
-.form-checkbox-line {
-  display: grid;
-  grid-template-columns: 300px auto;
-  align-items: center;
-  justify-content: left;
-}
-
 .time-grid {
   display: grid;
   align-items: center;
-  grid-template-columns: auto auto 100px 100px;
+  grid-template-columns: auto auto 80px 80px;
   gap: 10px;
 
   a.active {
@@ -295,6 +252,7 @@ table {
   border: 1px solid var(--color-border);
   border-radius: 4px;
   background-color: var(--color-background-soft);
+  color: inherit;
   padding: 10px;
   font-size: inherit;
   width: 100%;

@@ -51,7 +51,7 @@ export interface TimerConfig {
   reminders: TimeReminder[]
 }
 
-const DEFAULT_TIMERS: TimerConfig[] = [
+export const DEFAULT_TIMERS: TimerConfig[] = [
   {
     name: 'Lighting Talk (no Q&A)',
     slug: slugify('Lighting Talk (no Q&A)'),
