@@ -13,10 +13,13 @@ const meta: Meta<typeof TimerView> = {
   argTypes: {
     useTemplate: {
       control: 'select',
-            options: DEFAULT_TIMERS.map(t => t.name),
-            mapping: Object.fromEntries(DEFAULT_TIMERS.map(t => [t.name, t])),
-            description: 'The template to render in the timeline. The options include the defaults for the app.'
-    }
+      options: DEFAULT_TIMERS.map(t => t.name),
+      mapping: Object.fromEntries(DEFAULT_TIMERS.map(t => [t.name, t])),
+      description: 'The timer view usually uses the URL slug to determine the template to use, but with this slider you can override this.',
+      table: {
+        defaultValue: { summary: 'undefined', detail: 'This component reads the current route\'s slug to determine which template to use.' }
+      }
+    },
   },
   args: {},
 }
@@ -47,7 +50,7 @@ export const View404: StoryObj<typeof meta> = {
   args: {}
 }
 
-export const FullPresentationPresentation: StoryObj<typeof meta> = {
+export const FullPresentation: StoryObj<typeof meta> = {
   args: {
     useTemplate: TEST_CONFIG
   }
