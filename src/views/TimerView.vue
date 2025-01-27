@@ -18,9 +18,9 @@
     <div id="progress-background" v-bind:style="progressStyle"></div>
 
     <!-- Then the main timer grid -->
-    <div id="timer-grid">
+    <div id="timer-grid" class="contrast-text">
       <!-- Timer Controls -->
-      <div class="header-left contrast-text">
+      <div class="header-left">
         <div id="timer-controls">
           <a href="#" v-on:click="resetTimer()">
             <RewindIcon v-bind:size="20"></RewindIcon>
@@ -51,12 +51,12 @@
         </p>
       </div>
 
-      <div class="header-right contrast-text">
+      <div class="header-right">
         <!-- Exit the timer view -->
         <RouterLink to="/">Exit</RouterLink>
       </div>
 
-      <div id="main-display" class="content-center contrast-text">
+      <div id="main-display" class="content-center">
         <template v-if="currentTimerState.state === 'stopped'">
           <!-- The timer hasn't started -> show welcome message -->
           <a href="#" v-on:click="resumeTimer">
@@ -99,7 +99,7 @@
         </template>
       </div>
 
-      <div class="footer-left contrast-text">
+      <div class="footer-left">
         <select
           id="template-selector"
           v-bind:value="template.slug"
@@ -117,13 +117,13 @@
           </optgroup>
         </select>
       </div>
-      <div class="footer-center time-display contrast-text">
+      <div class="footer-center time-display">
         <DynamicTimeline
           v-bind:template="template"
           v-bind:elapsed-seconds="currentTimerState.timeNow - currentTimerState.timeStarted"
         ></DynamicTimeline>
       </div>
-      <div class="footer-right contrast-text">{{ currentPhase }}</div>
+      <div class="footer-right">{{ currentPhase }}</div>
     </div>
   </template>
 </template>
@@ -434,6 +434,8 @@ function switchTemplate (newSlug: string) {
 
 <style lang="css" scoped>
 #timer-grid {
+  color: white;
+  mix-blend-mode: difference;
   width: 100vw;
   height: 100vh;
   display: grid;
@@ -448,7 +450,7 @@ function switchTemplate (newSlug: string) {
   overflow: hidden;
 
   a {
-    color: inherit;
+    color: white;
     text-decoration: none;
   }
 
@@ -487,9 +489,8 @@ function switchTemplate (newSlug: string) {
     border-radius: 20px;
     width: 20px;
     height: 20px;
-    &:hover, &.active {
-      opacity: 0.5;
-    }
+
+    &:hover, &.active { color: #999; }
   }
 }
 
@@ -509,10 +510,6 @@ function switchTemplate (newSlug: string) {
     grid-column: 1;
     font-weight: bold;
     display: block;
-  }
-
-  a:hover {
-    transform: scale(2);
   }
 }
 

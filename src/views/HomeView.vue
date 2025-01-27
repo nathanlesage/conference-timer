@@ -20,8 +20,9 @@
     <footer>
       <p>
         &copy; Hendrik Erz {{ (new Date()).getFullYear() }} |
-        Conference Timer v{{ versionString }} |
-        <a href="https://github.com/nathanlesage/conference-timer">View on GitHub</a>
+        v{{ versionString }} |
+        <a href="https://github.com/nathanlesage/conference-timer">View on GitHub</a> |
+        <a href="https://github.com/nathanlesage/conference-timer/blob/main/CHANGELOG.md">What's changed?</a>
       </p>
     </footer>
   </div>

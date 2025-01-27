@@ -1,3 +1,10 @@
+# 0.5.0 (Jan 27, 2025)
+
+* Primarily design fixes -- the homepage is now properly colored, and the colors
+  on the timer view have been revised
+* Removed the scaling effect on the timer view's play button
+* Add "What's changed" link on homepage
+
 # v0.4.0 (Jan 16, 2025)
 
 * Adapt home screen layout to use a table for simpler parsing of the information
