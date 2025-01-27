@@ -18,10 +18,11 @@ a {
 .pillow {
   display: inline-block;
   text-decoration: none; /* If applied to anchors */
+  color: var(--color-text);
   background-color: var(--color-background-soft);
   border-radius: 5px;
   margin-bottom: 5px;
-  padding: 5px;
+  padding: 5px 10px;
 
   &.contrast {
     background-color: var(--vt-c-indigo);

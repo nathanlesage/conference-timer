@@ -1,7 +1,7 @@
 <template>
   <div id="home-wrapper">
     <header>
-      <h1 class="contrast-text">
+      <h1>
         Conference Timer
         <!-- Make the AppLogo visually align centrally with the text -->
         <AppLogo v-bind:size="80" style="margin-bottom: -12px;"></AppLogo>
@@ -9,7 +9,7 @@
 
     </header>
     <main>
-      <p class="contrast-text">
+      <p>
         Help your speakers visually manage their presentation time. To get
         started, select a template from below, or create your own in a few
         seconds.
@@ -18,7 +18,7 @@
       <TemplateTable></TemplateTable>
     </main>
     <footer>
-      <p class="contrast-text">
+      <p>
         &copy; Hendrik Erz {{ (new Date()).getFullYear() }} |
         Conference Timer v{{ versionString }} |
         <a href="https://github.com/nathanlesage/conference-timer">View on GitHub</a>
@@ -30,7 +30,7 @@
 <script setup lang="ts">
 import AppLogo from '../components/AppLogo.vue'
 import { RouterLink } from 'vue-router'
-import TemplateTable from '@/components/TemplateTable.vue';
+import TemplateTable from '@/components/TemplateTable.vue'
 
 const versionString = __APP_VERSION__
 </script>
@@ -57,6 +57,7 @@ const versionString = __APP_VERSION__
   background: linear-gradient(45deg, #ef9a80, #f3a4c2, #9bdff8, #23d5ab);
   background-size: 400% 400%;
   animation: gradient 30s ease infinite;
+  color: var(--vt-c-text-light-1); /* Keep the text color regardless of light/dark mode */
 }
 
 header {
